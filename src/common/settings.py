@@ -6,5 +6,8 @@ class Settings(BaseSettings):
     app_name: str = "copyright"
     debug: bool = True
 
+    # db
+    url: str = "postgresql://postgres:postgres@localhost/postgres"
+
 
 settings = Settings()

@@ -12,6 +12,7 @@ class Feedback(Base):
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=datetime.now)
     text = Column(String)
+    rate = Column(Integer, default=5)
     user_id = Column(Integer, ForeignKey("user.id"), unique=True)
 
     user = relationship("User", back_populates="feedbacks")

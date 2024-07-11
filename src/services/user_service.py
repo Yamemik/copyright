@@ -10,9 +10,12 @@ from fastapi_users.authentication import (
 )
 from fastapi_users.db import SQLAlchemyUserDatabase
 
-from ..common.database import User, get_user_db
+from ..common.database import get_user_db
+from ..common.settings import settings
+from ..models.user_model import User
 
-SECRET = "SECRET"
+
+SECRET = settings.secret
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):

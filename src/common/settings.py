@@ -9,5 +9,8 @@ class Settings(BaseSettings):
     # db
     url: str = "postgresql+asyncpg://postgres:postgres@localhost/copyright"
 
+    # auth
+    secret: str = "B$j8VpWY@rL&J0$$"
+
 
 settings = Settings()

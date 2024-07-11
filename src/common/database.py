@@ -14,10 +14,6 @@ class Base(DeclarativeBase):
 	pass
 
 
-class User(SQLAlchemyBaseUserTableUUID, Base):
-	pass
-
-
 engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 

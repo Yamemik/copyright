@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     debug: bool = True
 
     # db
-    url: str = "postgresql+asyncpg://postgres:postgres@localhost/copyright"
+    url: str = "postgresql+asyncpg://postgres:postgres@localhost/postgres"
 
     # auth
     secret: str = "B$j8VpWY@rL&J0$$"

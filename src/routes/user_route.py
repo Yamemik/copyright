@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Depends, HTTPException
 
-from ..common.database import User
+from ..models.user_model import User
 from ..schemas.user_schema import UserCreate, UserRead, UserUpdate
 from ..services.user_service import auth_backend, current_active_user, fastapi_users
 

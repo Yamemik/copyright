@@ -11,6 +11,8 @@ fastapi-users = {extras = ["sqlalchemy"], version = "*"}
 pydantic-settings = "*"
 psycopg2 = "*"
 asyncpg = "*"
+fastapi-admin = "*"
+fastapi-mail = "*"
 
 [dev-packages]
 

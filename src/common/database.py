@@ -1,18 +1,22 @@
 from typing import AsyncGenerator
 
 from fastapi import Depends
-from fastapi_users.db import SQLAlchemyUserDatabase
+from fastapi_users.db import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTableUUID
+from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker, relationship
 
 from .settings import settings
-from ..models.user_model import User
 
 DATABASE_URL = settings.url
 
 
 class Base(DeclarativeBase):
 	pass
+
+
+class User(SQLAlchemyBaseUserTableUUID, Base):
+	feedbacks = relationship("Feedback", back_populates="user")
 
 
 engine = create_async_engine(DATABASE_URL)

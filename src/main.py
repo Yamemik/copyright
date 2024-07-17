@@ -1,6 +1,8 @@
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.common.settings import settings
 from src.common.database import create_db_and_tables
@@ -23,6 +25,21 @@ def create_app():
         docs_url="/api/docs",
         title=f"{settings.app_name} API docs",
         lifespan=lifespan,
+    )
+
+    origins = [
+        "https://copyright-chu.ru/",
+        "http://copyright-chu.ru/",
+        "http://localhost",
+        "http://localhost:3000",
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     app.include_router(

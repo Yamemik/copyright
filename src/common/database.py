@@ -2,9 +2,9 @@ from typing import AsyncGenerator
 
 from fastapi import Depends
 from fastapi_users.db import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTableUUID
-from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker, relationship
+from sqlalchemy.orm import DeclarativeBase, relationship
+from sqladmin import ModelView
 
 from .settings import settings
 
@@ -17,7 +17,14 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     feedbacks = relationship("Feedback", back_populates="user")
-    advance = relationship("Advance", back_populates="user")
+    # advance = relationship("Advance", back_populates="user")
+
+
+class UsersAdmin(ModelView, model=User):
+    name = "Пользователь"
+    name_plural = "Пользователи"
+    icon = "fa-sharp fa-solid fa-user"
+    column_list = "__all__"
 
 
 engine = create_async_engine(DATABASE_URL)

@@ -3,14 +3,16 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from sqladmin import Admin
 
 from src.common.settings import settings
-from src.common.database import create_db_and_tables
+from src.common.database import create_db_and_tables, UsersAdmin, engine
 from src.routes.feedback_route import feedback_router
 from src.routes.course_route import course_router
-
+from src.routes.email_route import email_router
 from src.schemas.user_schema import UserCreate, UserRead, UserUpdate
 from src.services.user_service import auth_backend, fastapi_users, current_active_user
+from src.models.feedback_model import FeedbackAdmin
 
 
 @asynccontextmanager
@@ -42,6 +44,11 @@ def create_app():
         allow_headers=["*"],
     )
 
+    # admin`s panel
+    admin = Admin(app, engine)
+    admin.add_view(UsersAdmin)
+    admin.add_view(FeedbackAdmin)
+
     app.include_router(
         fastapi_users.get_auth_router(auth_backend), prefix="/api/auth/jwt", tags=["auth"]
     )
@@ -68,5 +75,6 @@ def create_app():
 
     app.include_router(feedback_router, dependencies=[Depends(current_active_user)])
     app.include_router(course_router, dependencies=[Depends(current_active_user)])
+    app.include_router(email_router, )
 
     return app

@@ -13,4 +13,4 @@ class Advance(Base):
     created_at = Column(DateTime, default=datetime.now)
     user_id = Column(Uuid, ForeignKey(User.id), unique=True)
 
-    user = relationship("User", back_populates="advance")
+    # user = relationship("User", back_populates="advance")
